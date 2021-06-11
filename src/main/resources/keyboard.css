@@ -1,0 +1,10 @@
+.down-btn {
+    -fx-padding: 1;
+    -fx-background-radius: 2 2 0 0;
+    -fx-rotate: 180;
+}
+
+.up-btn {
+    -fx-padding: 1;
+    -fx-background-radius: 2 2 0 0;
+}
