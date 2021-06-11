@@ -2,6 +2,7 @@ package me.koala.enigma;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -82,6 +83,13 @@ public class KeyboardController {
     public Circle mCirc;
     public Ellipse spaceCirc;
 
+    public TextField output;
+    public Button resetOutputButton;
+
+    public void resetOutput(ActionEvent event) {
+        output.setText("");
+    }
+
     public void initialize() {
         randomRotors();
         randomPositions();
@@ -160,6 +168,7 @@ public class KeyboardController {
             setKey(output, litColor);
             keyDown = key.getCode();
             litKey = output;
+            this.output.setText(this.output.getText() + (output == ' ' ? "-" : output == '\t' ? "=" : output));
         }
     }
 
