@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 
 import java.util.*;
 
+@SuppressWarnings({"unused"})
 public class KeyboardController {
 
     private final String allowedKeys = "1234567890qwertyuiopasdfghjklzxcvbnm\t ";
