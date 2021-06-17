@@ -1,6 +1,5 @@
 package me.koala.enigma;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
-@SuppressWarnings({"unused"})
 public class KeyboardController {
 
     KeyCode keyDown = null;
@@ -91,7 +89,7 @@ public class KeyboardController {
 
     private List<Plug> plugs;
 
-    public void resetOutput(ActionEvent event) {
+    public void resetOutput() {
         output.setText("");
     }
 
@@ -166,7 +164,7 @@ public class KeyboardController {
         rotorThreePosition.setText(rotor3.position + "");
     }
 
-    public void openPlugboard(ActionEvent event) {
+    public void openPlugboard() {
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -338,7 +336,7 @@ public class KeyboardController {
         currentNo = rotor3.runThrough(currentNo, false);
         currentNo = rotor2.runThrough(currentNo, false);
         currentNo = rotor1.runThrough(currentNo, false);
-//        currentNo = plugBoard.runThrough(currentNo);
+        currentNo = runThroughPlugs(currentNo);
         if (currentNo == -1) {
             System.out.println(rotor1.position + ", " + rotor2.position + ", " + rotor3.position);
         }
@@ -347,34 +345,34 @@ public class KeyboardController {
         return Constants.allowedKeys.charAt(currentNo);
     }
 
-    public void rotorThreePosUp(ActionEvent event) {
+    public void rotorThreePosUp() {
         setRotorPositions(rotor1.position, rotor2.position, (rotor3.position+1)%rotor3.wiring.length);
     }
-    public void rotorThreePosDown(ActionEvent event) {
+    public void rotorThreePosDown() {
         int newPos = (rotor3.position-1);
         if (newPos < 0) newPos = rotor3.wiring.length-1;
         setRotorPositions(rotor1.position, rotor2.position, newPos);
     }
 
-    public void rotorTwoPosUp(ActionEvent event) {
+    public void rotorTwoPosUp() {
         setRotorPositions(rotor1.position, (rotor2.position+1)%rotor2.wiring.length, rotor3.position);
     }
-    public void rotorTwoPosDown(ActionEvent event) {
+    public void rotorTwoPosDown() {
         int newPos = (rotor2.position-1);
         if (newPos < 0) newPos = rotor2.wiring.length-1;
         setRotorPositions(rotor1.position, newPos, rotor3.position);
     }
 
-    public void rotorOnePosUp(ActionEvent event) {
+    public void rotorOnePosUp() {
         setRotorPositions((rotor1.position+1)%rotor1.wiring.length, rotor2.position, rotor3.position);
     }
-    public void rotorOnePosDown(ActionEvent event) {
+    public void rotorOnePosDown() {
         int newPos = (rotor1.position-1);
         if (newPos < 0) newPos = rotor1.wiring.length-1;
         setRotorPositions(newPos, rotor2.position, rotor3.position);
     }
 
-    public void rotorThreeNext(ActionEvent event) {
+    public void rotorThreeNext() {
         int ogNo = rotor3.rotorNo;
         rotor3.nextRotor();
         while (rotor3.rotorNo != ogNo && (rotor3.rotorNo == rotor1.rotorNo || rotor3.rotorNo == rotor2.rotorNo))
@@ -382,7 +380,7 @@ public class KeyboardController {
         rotorThreeName.setText("" + rotor3.rotorNo);
     }
 
-    public void rotorTwoNext(ActionEvent event) {
+    public void rotorTwoNext() {
         int ogNo = rotor2.rotorNo;
         rotor2.nextRotor();
         while (rotor2.rotorNo != ogNo && (rotor2.rotorNo == rotor1.rotorNo || rotor2.rotorNo == rotor3.rotorNo))
@@ -390,7 +388,7 @@ public class KeyboardController {
         rotorTwoName.setText("" + rotor2.rotorNo);
     }
 
-    public void rotorOneNext(ActionEvent event) {
+    public void rotorOneNext() {
         int ogNo = rotor1.rotorNo;
         rotor1.nextRotor();
         while (rotor1.rotorNo != ogNo && (rotor1.rotorNo == rotor3.rotorNo || rotor1.rotorNo == rotor2.rotorNo))

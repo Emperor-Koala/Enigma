@@ -2,7 +2,6 @@ package me.koala.enigma;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -165,19 +164,8 @@ public class Plugboard {
             c1s.fillProperty().setValue(plug.getPlugColor());
             c2s.fillProperty().setValue(plug.getPlugColor());
 
-            Parent c1p = c1s.getParent();
-            Parent c2p = c2s.getParent();
-
-            Bounds b1 = c1p.getLayoutBounds();
-            Bounds b2 = c1p.getBoundsInParent();
-            Bounds b3 = c1p.getBoundsInLocal();
-
-            System.out.println("c1p.lts(layoutBounds) => " + c1p.localToScene(b1));
-            System.out.println("c1p.lts(boundsInParent) => " + c1p.localToScene(b2));
-            System.out.println("c1p.lts(boundsInLocal) => " + c1p.localToScene(b3));
-
-            Bounds c1b = c1p.localToScene(c1p.getLayoutBounds());
-            Bounds c2b = c2p.localToScene(c2p.getLayoutBounds());
+            Bounds c1b = c1s.localToScene(c1s.getLayoutBounds());
+            Bounds c2b = c2s.localToScene(c2s.getLayoutBounds());
 
             Line line = new Line(c1b.getCenterX(), c1b.getCenterY(), c2b.getCenterX(), c2b.getCenterY());
             line.strokeProperty().setValue(plug.getPlugColor());
