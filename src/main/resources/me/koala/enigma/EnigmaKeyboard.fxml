@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.koala.enigma.KeyboardController">
+<VBox fx:id="rootPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.koala.enigma.KeyboardController">
    <children>
       <HBox alignment="CENTER" prefHeight="180.0" prefWidth="200.0" spacing="20.0">
          <children>
@@ -84,6 +86,12 @@
                   <Button fx:id="rotorOnePosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="53.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorOnePosDown" prefHeight="20.0" prefWidth="50.0" rotate="180.0" text="⌃" />
                </children>
             </VBox>
+            <Separator focusTraversable="false" orientation="VERTICAL" prefHeight="200.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </HBox.margin>
+            </Separator>
+            <CheckBox fx:id="darkModeCheckBox" alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleDarkMode" text="Dark Mode" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">

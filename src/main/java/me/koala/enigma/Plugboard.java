@@ -105,6 +105,8 @@ public class Plugboard {
 
     private Plug currentPlug;
 
+    private boolean darkMode;
+
     public void initialize() {
         indexedShapes.put(0, oneCirc);
         indexedShapes.put(1, twoCirc);
@@ -149,7 +151,10 @@ public class Plugboard {
         indexedShapes.put(37, spaceCirc);
     }
 
-    public void initData(List<Plug> plugs) {
+    public void initData(List<Plug> plugs, boolean darkMode) {
+        this.darkMode = darkMode;
+        if (darkMode)
+            rootPane.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
         this.plugs = Objects.requireNonNullElseGet(plugs, ArrayList::new);
         Iterator<Plug> iterator = this.plugs.iterator();
         while (iterator.hasNext()) {
@@ -333,9 +338,9 @@ public class Plugboard {
             Plug plug = iterator.next();
             if (plug.getConnection1() == i || plug.getConnection2() == i) {
                 if (plug.getConnection1() != -1)
-                    indexedShapes.get(plug.getConnection1()).fillProperty().setValue(Constants.unlitColor);
+                    indexedShapes.get(plug.getConnection1()).fillProperty().setValue(darkMode ? Constants.darkUnlitColor : Constants.unlitColor);
                 if (plug.getConnection2() != -1)
-                    indexedShapes.get(plug.getConnection2()).fillProperty().setValue(Constants.unlitColor);
+                    indexedShapes.get(plug.getConnection2()).fillProperty().setValue(darkMode ? Constants.darkUnlitColor : Constants.unlitColor);
                 if (plugLines.containsKey(plug) && plugLines.get(plug) != null) {
                     rootPane.getChildren().remove(plugLines.get(plug));
                     plugLines.remove(plug);

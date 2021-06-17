@@ -1,0 +1,29 @@
+.root {
+    -fx-background-color: #444;
+}
+
+.label, Text {
+    -fx-text-fill: #eee;
+    -fx-fill: #eee;
+}
+
+Circle, Ellipse, Rectangle {
+    -fx-fill: #333;
+}
+
+.button, .check-box .box {
+    -fx-background-color: linear-gradient(to bottom, #888, #666);
+    -fx-text-fill: #eee;
+}
+
+.button:pressed, .check-box:pressed .box {
+    -fx-background-color: linear-gradient(to top, #888, #666);
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #eee;
+}
+
+.check-box {
+    -fx-text-fill: #eee;
+}

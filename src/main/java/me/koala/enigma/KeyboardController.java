@@ -1,12 +1,15 @@
 package me.koala.enigma;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
@@ -16,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.prefs.Preferences;
 
 public class KeyboardController {
 
@@ -26,6 +30,8 @@ public class KeyboardController {
     Rotor rotor2;
     Rotor rotor3;
     private final End end = new End();
+
+    public VBox rootPane;
 
     public Button editPlugboardBtn;
 
@@ -87,13 +93,32 @@ public class KeyboardController {
     public TextField output;
     public Button resetOutputButton;
 
+    public CheckBox darkModeCheckBox;
+
     private List<Plug> plugs;
+
+    private Preferences userPrefs;
 
     public void resetOutput() {
         output.setText("");
     }
 
     public void initialize() {
+
+        try {
+            userPrefs = Preferences.userRoot().node("empko/Enigma");
+
+            boolean darkMode = userPrefs.getBoolean("darkMode", false);
+            if (darkMode) {
+                rootPane.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
+                darkModeCheckBox.setSelected(true);
+            }
+
+        } catch (SecurityException ex) {
+            // TODO warn user Unable to load preferences
+            System.out.println("Unable to load preferences");
+        }
+
         plugs = new ArrayList<>();
         randomRotors();
         randomPositions();
@@ -172,7 +197,7 @@ public class KeyboardController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
             Plugboard pb = loader.getController();
-            stage.setOnShown(e -> pb.initData(plugs));
+            stage.setOnShown(e -> pb.initData(plugs, userPrefs.getBoolean("darkMode", false)));
             stage.showAndWait();
             this.plugs = pb.getReturnData();
         }
@@ -185,7 +210,7 @@ public class KeyboardController {
         if (keyDown == null && Constants.allowedKeys.contains(key.getText().toLowerCase(Locale.ROOT))) {
             char output = runMachine(key.getText().toLowerCase(Locale.ROOT).charAt(0));
             if (output == '?') return;
-            setKey(output, Constants.litColor);
+            setKey(output, userPrefs.getBoolean("dark_mode", true) ? Constants.darkLitColor : Constants.litColor);
             keyDown = key.getCode();
             litKey = output;
             this.output.setText(this.output.getText() + (output == ' ' ? "-" : output == '\t' ? "=" : output));
@@ -194,7 +219,7 @@ public class KeyboardController {
 
     public void keyReleasedListener(KeyEvent key) {
         if (keyDown != null && keyDown.equals(key.getCode())) {
-            setKey(litKey, Constants.unlitColor);
+            setKey(litKey, userPrefs.getBoolean("dark_mode", true) ? Constants.darkUnlitColor : Constants.unlitColor);
             keyDown = null;
         }
     }
@@ -403,6 +428,16 @@ public class KeyboardController {
         }
 
         return input; //if no plugs on that letter then just return the input
+    }
+
+    public void toggleDarkMode(ActionEvent e) {
+        if(darkModeCheckBox.isSelected()) {
+            userPrefs.putBoolean("darkMode", true);
+            rootPane.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
+        } else {
+            userPrefs.putBoolean("darkMode", false);
+            rootPane.getStylesheets().remove(getClass().getResource("darkmode.css").toExternalForm());
+        }
     }
 
     private static class Rotor {
