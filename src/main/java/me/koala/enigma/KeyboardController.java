@@ -95,9 +95,6 @@ public class KeyboardController {
 
     public void initialize() {
         plugs = new ArrayList<>();
-        plugs.add(new Plug(0, 1, new Color(1, 0, 0, 1)));
-        plugs.add(new Plug(13, 24, new Color(0, 1, 0, 1)));
-        plugs.add(new Plug(31, 4, new Color(0, 0, 1, 1)));
         randomRotors();
         randomPositions();
     }
