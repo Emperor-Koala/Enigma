@@ -11,8 +11,7 @@ public class Enigma extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResourceAsStream("/EnigmaKeyboard.fxml"));
-        root.getStylesheets().add(getClass().getResource("/keyboard.css").toExternalForm());
+        Parent root = loader.load(getClass().getResourceAsStream("EnigmaKeyboard.fxml"));
         stage.addEventHandler(KeyEvent.KEY_PRESSED, loader.<KeyboardController>getController()::keyPressedListener);
         stage.addEventHandler(KeyEvent.KEY_RELEASED, loader.<KeyboardController>getController()::keyReleasedListener);
         stage.setResizable(false);

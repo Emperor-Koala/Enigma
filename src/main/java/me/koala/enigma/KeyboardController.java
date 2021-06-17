@@ -1,6 +1,9 @@
 package me.koala.enigma;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -9,15 +12,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.*;
 
 @SuppressWarnings({"unused"})
 public class KeyboardController {
-
-    private final String allowedKeys = "1234567890qwertyuiopasdfghjklzxcvbnm\t ";
-    private final Color litColor = new Color(1, ((double) 0xE9)/0xFF, ((double) 0x8E)/0xFF, 1);
-    private final Color unlitColor = new Color(((double) 0xBB)/0xFF, ((double) 0xBB)/0xFF, ((double) 0xBB)/0xFF, 1);
 
     KeyCode keyDown = null;
     char litKey = '?';
@@ -87,11 +89,17 @@ public class KeyboardController {
     public TextField output;
     public Button resetOutputButton;
 
+    private List<Plug> plugs;
+
     public void resetOutput(ActionEvent event) {
         output.setText("");
     }
 
     public void initialize() {
+        plugs = new ArrayList<>();
+        plugs.add(new Plug(0, 1, new Color(1, 0, 0, 1)));
+        plugs.add(new Plug(13, 24, new Color(0, 1, 0, 1)));
+        plugs.add(new Plug(31, 4, new Color(0, 0, 1, 1)));
         randomRotors();
         randomPositions();
     }
@@ -159,14 +167,30 @@ public class KeyboardController {
     }
 
     public void openPlugboard(ActionEvent event) {
-
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            root = loader.load(getClass().getResourceAsStream("plugboard.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Plugboard");
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            Plugboard pb = loader.getController();
+            stage.setOnShown(e -> pb.initData(plugs));
+            stage.showAndWait();
+            this.plugs = pb.getReturnData();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void keyPressedListener(KeyEvent key) {
-        if (keyDown == null && allowedKeys.contains(key.getText().toLowerCase(Locale.ROOT))) {
+        if (keyDown == null && Constants.allowedKeys.contains(key.getText().toLowerCase(Locale.ROOT))) {
             char output = runMachine(key.getText().toLowerCase(Locale.ROOT).charAt(0));
             if (output == '?') return;
-            setKey(output, litColor);
+            setKey(output, Constants.litColor);
             keyDown = key.getCode();
             litKey = output;
             this.output.setText(this.output.getText() + (output == ' ' ? "-" : output == '\t' ? "=" : output));
@@ -175,7 +199,7 @@ public class KeyboardController {
 
     public void keyReleasedListener(KeyEvent key) {
         if (keyDown != null && keyDown.equals(key.getCode())) {
-            setKey(litKey, unlitColor);
+            setKey(litKey, Constants.unlitColor);
             keyDown = null;
         }
     }
@@ -305,8 +329,8 @@ public class KeyboardController {
             return '?';
         }
 
-        int currentNo = allowedKeys.indexOf(c);
-//        currentNo = plugBoard.runThrough(currentNo);
+        int currentNo = Constants.allowedKeys.indexOf(c);
+        currentNo = runThroughPlugs(currentNo);
         currentNo = rotor1.runThrough(currentNo, true);
         currentNo = rotor2.runThrough(currentNo, true);
         currentNo = rotor3.runThrough(currentNo, true);
@@ -320,7 +344,7 @@ public class KeyboardController {
         }
         moveRotors();
 
-        return allowedKeys.charAt(currentNo);
+        return Constants.allowedKeys.charAt(currentNo);
     }
 
     public void rotorThreePosUp(ActionEvent event) {
@@ -372,6 +396,18 @@ public class KeyboardController {
         while (rotor1.rotorNo != ogNo && (rotor1.rotorNo == rotor3.rotorNo || rotor1.rotorNo == rotor2.rotorNo))
             rotor1.nextRotor();
         rotorOneName.setText("" + rotor1.rotorNo);
+    }
+
+    int runThroughPlugs(int input) {
+        for (Plug plug : plugs) {
+            if (plug.getConnection1() == input) {
+                return plug.getConnection2();
+            } else if (plug.getConnection2() == input) {
+                return plug.getConnection1();
+            }
+        }
+
+        return input; //if no plugs on that letter then just return the input
     }
 
     private static class Rotor {
@@ -433,11 +469,11 @@ public class KeyboardController {
             updateWiring();
         }
     }
-}
 
-class End {
-    private final int[][] wiring = {{0, 7}, {1, 25}, {2, 33}, {3, 10}, {4, 23}, {5, 6}, {6, 5}, {7, 0}, {8, 17}, {9, 36}, {10, 3}, {11, 28}, {12, 32}, {13, 24}, {14, 35}, {15, 21}, {16, 34}, {17, 8}, {18, 31}, {19, 30}, {20, 29}, {21, 15}, {22, 27}, {23, 4}, {24, 13}, {25, 1}, {26, 37}, {27, 22}, {28, 11}, {29, 20}, {30, 19}, {31, 18}, {32, 12}, {33, 2}, {34, 16}, {35, 14}, {36, 9}, {37, 26}};
-    int runThrough(int input) {
-        return wiring[input%wiring.length][1];
+    private static class End {
+        private final int[][] wiring = {{0, 7}, {1, 25}, {2, 33}, {3, 10}, {4, 23}, {5, 6}, {6, 5}, {7, 0}, {8, 17}, {9, 36}, {10, 3}, {11, 28}, {12, 32}, {13, 24}, {14, 35}, {15, 21}, {16, 34}, {17, 8}, {18, 31}, {19, 30}, {20, 29}, {21, 15}, {22, 27}, {23, 4}, {24, 13}, {25, 1}, {26, 37}, {27, 22}, {28, 11}, {29, 20}, {30, 19}, {31, 18}, {32, 12}, {33, 2}, {34, 16}, {35, 14}, {36, 9}, {37, 26}};
+        int runThrough(int input) {
+            return wiring[input%wiring.length][1];
+        }
     }
 }

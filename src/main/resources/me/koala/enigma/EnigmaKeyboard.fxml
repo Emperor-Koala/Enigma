@@ -17,7 +17,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="180.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button fx:id="editPlugboardBtn" disable="true" mnemonicParsing="false" onAction="#openPlugboard" text="Edit Plugboard" />
+            <Button fx:id="editPlugboardBtn" focusTraversable="false" mnemonicParsing="false" onAction="#openPlugboard" text="Edit Plugboard" />
             <VBox alignment="CENTER" prefHeight="200.0">
                <children>
                   <Button fx:id="rotorThreeName" focusTraversable="false" mnemonicParsing="false" onAction="#rotorThreeNext" prefHeight="30.0" prefWidth="30.0" text="1">
@@ -25,7 +25,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="rotorThreePosUpBtn" focusTraversable="false" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorThreePosUp" prefHeight="20.0" prefWidth="50.0" styleClass="up-btn" text="⌃" />
+                  <Button fx:id="rotorThreePosUpBtn" focusTraversable="false" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorThreePosUp" prefHeight="20.0" prefWidth="50.0" text="⌃" />
                   <StackPane>
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eeeeee" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
@@ -36,7 +36,7 @@
                         </Text>
                      </children>
                   </StackPane>
-                  <Button fx:id="rotorThreePosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="45.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorThreePosDown" prefHeight="20.0" prefWidth="50.0" styleClass="down-btn" text="⌃">
+                  <Button fx:id="rotorThreePosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="45.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorThreePosDown" prefHeight="20.0" prefWidth="50.0" rotate="180.0" text="⌃">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></Button>
@@ -49,7 +49,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="rotorTwoPosUpBtn" focusTraversable="false" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorTwoPosUp" prefHeight="20.0" prefWidth="50.0" styleClass="up-btn" text="⌃" />
+                  <Button fx:id="rotorTwoPosUpBtn" focusTraversable="false" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorTwoPosUp" prefHeight="20.0" prefWidth="50.0" text="⌃" />
                   <StackPane>
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eeeeee" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
@@ -60,7 +60,7 @@
                         </Text>
                      </children>
                   </StackPane>
-                  <Button fx:id="rotorTwoPosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="50.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorTwoPosDown" prefHeight="20.0" prefWidth="50.0" styleClass="down-btn" text="⌃" />
+                  <Button fx:id="rotorTwoPosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="50.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorTwoPosDown" prefHeight="20.0" prefWidth="50.0" rotate="180.0" text="⌃" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0">
@@ -70,7 +70,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="rotorOnePosUpBtn" focusTraversable="false" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorOnePosUp" prefHeight="20.0" prefWidth="50.0" styleClass="up-btn" text="⌃" />
+                  <Button fx:id="rotorOnePosUpBtn" focusTraversable="false" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorOnePosUp" prefHeight="20.0" prefWidth="50.0" text="⌃" />
                   <StackPane>
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eeeeee" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
@@ -81,7 +81,7 @@
                         </Text>
                      </children>
                   </StackPane>
-                  <Button fx:id="rotorOnePosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="53.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorOnePosDown" prefHeight="20.0" prefWidth="50.0" styleClass="down-btn" text="⌃" />
+                  <Button fx:id="rotorOnePosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="53.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorOnePosDown" prefHeight="20.0" prefWidth="50.0" rotate="180.0" text="⌃" />
                </children>
             </VBox>
          </children>

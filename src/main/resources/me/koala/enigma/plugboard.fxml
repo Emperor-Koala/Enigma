@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragOver="#updateLine" pickOnBounds="false" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.koala.enigma.Plugboard">
+   <children>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="550.0" prefWidth="850.0">
+          <children>
+              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                      <StackPane fx:id="oneStack" layoutX="505.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="oneCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="twoStack" layoutX="540.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="twoCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="threeStack" layoutX="575.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="threeCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="fourStack" layoutX="610.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="fourCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="fiveStack" layoutX="645.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="fiveCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="sixStack" layoutX="680.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="sixCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="6" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="sevenStack" layoutX="715.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="sevenCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="eightStack" layoutX="750.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="eightCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="nineStack" layoutX="785.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="nineCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="9" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="zeroStack" layoutX="820.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="zeroCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                  </children>
+              </HBox>
+              <HBox alignment="CENTER" layoutX="10.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                      <StackPane fx:id="tabStack" layoutX="470.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Ellipse fx:id="tabCirc" fill="#bbbbbb" radiusX="50.0" radiusY="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tab" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="qStack" layoutX="505.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="qCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Q" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="wStack" layoutX="540.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="wCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="W" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="eStack" layoutX="575.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="eCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="rStack" layoutX="610.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="rCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="R" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="tStack" layoutX="645.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="tCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="T" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="yStack" layoutX="680.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="yCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="uStack" layoutX="715.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="uCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="U" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="iStack" layoutX="750.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="iCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="I" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="oStack" layoutX="785.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="oCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="O" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="pStack" layoutX="820.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="pCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="P" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                  </children>
+              </HBox>
+              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                      <StackPane fx:id="aStack" layoutX="470.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="aCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="sStack" layoutX="505.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="sCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="S" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="dStack" layoutX="540.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="dCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="D" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="fStack" layoutX="575.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="fCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="F" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="gStack" layoutX="610.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="gCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="G" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="hStack" layoutX="645.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="hCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="H" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="jStack" layoutX="680.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="jCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="J" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="kStack" layoutX="715.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="kCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="K" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="lStack" layoutX="750.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="lCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="L" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                  </children>
+              </HBox>
+              <HBox alignment="CENTER" layoutX="10.0" layoutY="120.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                      <StackPane fx:id="zStack" layoutX="505.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="zCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Z" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane layoutX="540.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0" fx:id="xStack">
+                          <children>
+                              <Circle fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" fx:id="xCirc" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="cStack" layoutX="575.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="cCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="C" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="vStack" layoutX="610.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="vCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="V" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="bStack" layoutX="645.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="bCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="B" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="nStack" layoutX="680.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="nCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="N" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                      <StackPane fx:id="mStack" layoutX="715.0" layoutY="10.0" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd" prefHeight="150.0">
+                          <children>
+                              <Circle fx:id="mCirc" fill="#bbbbbb" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="M" textAlignment="CENTER">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Text>
+                          </children>
+                      </StackPane>
+                  </children>
+              </HBox>
+              <StackPane fx:id="spaceStack" onDragDetected="#dragStart" onMouseDragReleased="#dragEnd">
+                  <children>
+                      <Ellipse fx:id="spaceCirc" fill="#bbbbbb" radiusX="100.0" radiusY="35.0" stroke="BLACK" strokeType="INSIDE" />
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Space" textAlignment="CENTER">
+                          <font>
+                              <Font size="24.0" />
+                          </font>
+                      </Text>
+                  </children>
+                  <VBox.margin>
+                      <Insets top="5.0" />
+                  </VBox.margin>
+              </StackPane>
+          </children>
+          <padding>
+              <Insets bottom="10.0" />
+          </padding>
+      </VBox>
+   </children>
+</AnchorPane>

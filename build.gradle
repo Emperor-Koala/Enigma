@@ -23,27 +23,16 @@ dependencies {
     runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:win"
     runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:linux"
     runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:mac"
-    compile 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
 }
 
 mainClassName = 'me.koala.enigma.Main'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'me.koala.enigma.Main'
+        attributes 'Main-Class': mainClassName
     }
     from {
         configurations.runtimeClasspath.collect {it.isDirectory() ? it : zipTree(it) }
-    }
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java']
-        }
-        resources {
-            srcDirs = ["src/main/resources"]
-        }
     }
 }
