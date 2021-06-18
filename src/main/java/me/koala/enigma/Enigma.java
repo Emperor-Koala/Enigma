@@ -18,6 +18,7 @@ public class Enigma extends Application {
         stage.setResizable(false);
         stage.setTitle("Enigma");
         stage.setScene(new Scene(root));
+        stage.setOnCloseRequest(e -> kc.saveData());
         stage.show();
     }
 

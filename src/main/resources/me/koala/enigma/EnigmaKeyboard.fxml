@@ -86,12 +86,12 @@
                   <Button fx:id="rotorOnePosDownBtn" focusTraversable="false" layoutX="10.0" layoutY="53.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#rotorOnePosDown" prefHeight="20.0" prefWidth="50.0" rotate="180.0" text="⌃" />
                </children>
             </VBox>
-            <Separator focusTraversable="false" orientation="VERTICAL" prefHeight="200.0">
+            <Separator orientation="VERTICAL" prefHeight="200.0">
                <HBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
             </Separator>
-            <CheckBox fx:id="darkModeCheckBox" alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleDarkMode" text="Dark Mode" />
+            <CheckBox fx:id="darkModeCheckBox" focusTraversable="false" alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleDarkMode" text="Dark Mode" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">

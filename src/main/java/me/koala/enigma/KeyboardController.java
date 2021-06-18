@@ -1,6 +1,5 @@
 package me.koala.enigma;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,9 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
-import java.util.prefs.Preferences;
 
 public class KeyboardController {
 
@@ -97,7 +95,9 @@ public class KeyboardController {
 
     private List<Plug> plugs;
 
-    private Preferences userPrefs;
+//    private Preferences userPrefs;
+
+    private boolean darkMode;
 
     public void resetOutput() {
         output.setText("");
@@ -105,23 +105,165 @@ public class KeyboardController {
 
     public void initialize() {
 
-        try {
-            userPrefs = Preferences.userRoot().node("empko/Enigma");
-
-            boolean darkMode = userPrefs.getBoolean("darkMode", false);
-            if (darkMode) {
-                rootPane.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
-                darkModeCheckBox.setSelected(true);
-            }
-
-        } catch (SecurityException ex) {
-            // TODO warn user Unable to load preferences
-            System.out.println("Unable to load preferences");
-        }
-
+        darkMode = false;
         plugs = new ArrayList<>();
+
         randomRotors();
         randomPositions();
+
+        try {
+            String dataPath = System.getProperty("user.home") + "/.empko/enigma";
+            File dataFolder = new File(dataPath);
+            if (!dataFolder.exists()) {
+                if (!dataFolder.mkdirs()) {
+                    // TODO handle
+                }
+            }
+            File dataFile = new File(dataFolder, "settings.data");
+            if (!dataFile.exists()) {
+                if (!dataFile.createNewFile()) {
+                    // TODO handle
+                }
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+            for(String line; (line = reader.readLine()) != null; ) {
+                String[] data = line.trim().split("=");
+                if (data.length < 2) continue;
+                switch (data[0].trim().toLowerCase(Locale.ROOT)) {
+                    case "darkmode":
+                        darkMode = Boolean.parseBoolean(data[1]);
+                        if (darkMode) {
+                            rootPane.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
+                            darkModeCheckBox.setSelected(true);
+                        }
+                        break;
+                    case "plugs":
+                        String[] plugs = data[1].trim().split(";");
+                        for (String s : plugs) {
+                            String[] plug = s.trim().split(",");
+                            if (plug.length < 2) continue;
+
+                            int conn1;
+                            int conn2;
+                            try {
+                                conn1 = Integer.parseInt(plug[0]);
+                                conn2 = Integer.parseInt(plug[1]);
+                            } catch (NumberFormatException nfe) { continue; }
+
+                            Color plugColor;
+
+                            if (plug.length < 3) {
+                                plugColor = Constants.randomPlugColor();
+                            } else {
+                                try {
+                                    plugColor = Color.web(plug[2]);
+                                } catch (Exception e) {
+                                    plugColor = Constants.randomPlugColor();
+                                }
+                            }
+
+                            this.plugs.add(new Plug(conn1, conn2, plugColor));
+                        }
+                        break;
+                    case "rotors":
+                        String[] rotors = data[1].trim().split(";");
+
+                        // Rotor 1
+                        if (rotors.length >= 1) {
+                            String[] rs1 = rotors[0].trim().split(",");
+                            if (rs1.length >= 2) {
+                                try {
+                                    int r1 = Integer.parseInt(rs1[0]);
+                                    int rp1 = Integer.parseInt(rs1[1]);
+
+                                    rotor1 = new Rotor(r1, 1);
+                                    rotor1.position = rp1;
+                                    rotorOnePosition.setText(rotor1.position + "");
+                                    rotorOneName.setText(rotor1.rotorNo + "");
+
+                                } catch (NumberFormatException ignored) { }
+                            }
+                        }
+
+                        // Rotor 2
+                        if (rotors.length >= 2) {
+                            String[] rs2 = rotors[1].trim().split(",");
+                            if (rs2.length >= 2) {
+                                try {
+                                    int r2 = Integer.parseInt(rs2[0]);
+                                    int rp2 = Integer.parseInt(rs2[1]);
+
+                                    rotor2 = new Rotor(r2, 1);
+                                    rotor2.position = rp2;
+                                    rotorTwoPosition.setText(rotor2.position + "");
+                                    rotorTwoName.setText(rotor2.rotorNo + "");
+
+                                } catch (NumberFormatException ignored) { }
+                            }
+                        }
+
+                        // Rotor 2
+                        if (rotors.length >= 3) {
+                            String[] rs3 = rotors[2].trim().split(",");
+                            if (rs3.length >= 2) {
+                                try {
+                                    int r3 = Integer.parseInt(rs3[0]);
+                                    int rp3 = Integer.parseInt(rs3[1]);
+
+                                    rotor3 = new Rotor(r3, 1);
+                                    rotor3.position = rp3;
+                                    rotorThreePosition.setText(rotor3.position + "");
+                                    rotorThreeName.setText(rotor3.rotorNo + "");
+
+                                } catch (NumberFormatException ignored) { }
+                            }
+                        }
+                }
+            }
+
+            reader.close();
+
+        } catch (IOException | SecurityException ex) {
+            // TODO handle
+            ex.printStackTrace();
+        }
+    }
+
+    public void saveData() {
+        try {
+            String dataPath = System.getProperty("user.home") + "/.empko/enigma";
+            File dataFolder = new File(dataPath);
+            if (!dataFolder.exists()) {
+                if (!dataFolder.mkdirs()) {
+                    // TODO handle
+                }
+            }
+            File dataFile = new File(dataFolder, "settings.data");
+            if (!dataFile.exists()) {
+                if (!dataFile.createNewFile()) {
+                    // TODO handle
+                }
+            }
+
+            FileWriter writer = new FileWriter(dataFile);
+            writer.write("darkmode=" + darkMode + System.lineSeparator());
+            StringBuilder plugsStr = new StringBuilder("plugs=");
+            for (Plug plug : plugs) {
+                plugsStr.append(plug.getConnection1()).append(",").append(plug.getConnection2()).append(",").append(plug.getPlugColor().toString()).append(";");
+            }
+            writer.write(plugsStr + System.lineSeparator());
+
+            String rotStr = "rotors=" + rotor1.rotorNo + "," + rotor1.position + ";" + rotor2.rotorNo + "," + rotor2.position + ";" + rotor3.rotorNo + "," + rotor3.position;
+            writer.write(rotStr + System.lineSeparator());
+
+            writer.flush();
+            writer.close();
+
+        } catch (IOException | SecurityException ex) {
+            // TODO handle
+            ex.printStackTrace();
+        }
     }
 
     void randomRotors() {
@@ -197,7 +339,10 @@ public class KeyboardController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
             Plugboard pb = loader.getController();
-            stage.setOnShown(e -> pb.initData(plugs, userPrefs.getBoolean("darkMode", false)));
+            stage.setOnShown(e -> {
+                pb.setDarkMode(darkMode);
+                pb.initData(plugs);
+            });
             stage.showAndWait();
             this.plugs = pb.getReturnData();
         }
@@ -210,7 +355,7 @@ public class KeyboardController {
         if (keyDown == null && Constants.allowedKeys.contains(key.getText().toLowerCase(Locale.ROOT))) {
             char output = runMachine(key.getText().toLowerCase(Locale.ROOT).charAt(0));
             if (output == '?') return;
-            setKey(output, userPrefs.getBoolean("dark_mode", true) ? Constants.darkLitColor : Constants.litColor);
+            setKey(output, darkMode ? Constants.darkLitColor : Constants.litColor);
             keyDown = key.getCode();
             litKey = output;
             this.output.setText(this.output.getText() + (output == ' ' ? "-" : output == '\t' ? "=" : output));
@@ -219,7 +364,7 @@ public class KeyboardController {
 
     public void keyReleasedListener(KeyEvent key) {
         if (keyDown != null && keyDown.equals(key.getCode())) {
-            setKey(litKey, userPrefs.getBoolean("dark_mode", true) ? Constants.darkUnlitColor : Constants.unlitColor);
+            setKey(litKey, darkMode ? Constants.darkUnlitColor : Constants.unlitColor);
             keyDown = null;
         }
     }
@@ -430,12 +575,12 @@ public class KeyboardController {
         return input; //if no plugs on that letter then just return the input
     }
 
-    public void toggleDarkMode(ActionEvent e) {
+    public void toggleDarkMode() {
         if(darkModeCheckBox.isSelected()) {
-            userPrefs.putBoolean("darkMode", true);
+            darkMode = true;
             rootPane.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
         } else {
-            userPrefs.putBoolean("darkMode", false);
+            darkMode = false;
             rootPane.getStylesheets().remove(getClass().getResource("darkmode.css").toExternalForm());
         }
     }

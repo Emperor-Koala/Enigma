@@ -1,11 +1,10 @@
 package me.koala.enigma;
 
 import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
@@ -151,10 +150,20 @@ public class Plugboard {
         indexedShapes.put(37, spaceCirc);
     }
 
-    public void initData(List<Plug> plugs, boolean darkMode) {
+    public void setDarkMode(boolean darkMode) {
         this.darkMode = darkMode;
-        if (darkMode)
-            rootPane.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
+        if (darkMode) {
+            rootPane.setBackground(new Background(new BackgroundFill(Color.web("#444"), CornerRadii.EMPTY, Insets.EMPTY)));
+            indexedShapes.forEach((k, v) -> {
+                v.fillProperty().setValue(Constants.darkUnlitColor);
+                Text text = getTextChild((Pane) v.getParent());
+                if (text != null)
+                    text.fillProperty().setValue(Color.web("#eee"));
+            });
+        }
+    }
+
+    public void initData(List<Plug> plugs) {
         this.plugs = Objects.requireNonNullElseGet(plugs, ArrayList::new);
         Iterator<Plug> iterator = this.plugs.iterator();
         while (iterator.hasNext()) {
@@ -164,10 +173,7 @@ public class Plugboard {
                 continue;
             }
             Shape c1s = indexedShapes.get(plug.getConnection1());
-            System.out.println(c1s.getId());
             Shape c2s = indexedShapes.get(plug.getConnection2());
-            c1s.fillProperty().setValue(plug.getPlugColor());
-            c2s.fillProperty().setValue(plug.getPlugColor());
 
             Bounds c1b = c1s.localToScene(c1s.getLayoutBounds());
             Bounds c2b = c2s.localToScene(c2s.getLayoutBounds());
@@ -175,6 +181,9 @@ public class Plugboard {
             Line line = new Line(c1b.getCenterX(), c1b.getCenterY(), c2b.getCenterX(), c2b.getCenterY());
             line.strokeProperty().setValue(plug.getPlugColor());
             line.strokeWidthProperty().setValue(5);
+
+            c1s.fillProperty().setValue(plug.getPlugColor());
+            c2s.fillProperty().setValue(plug.getPlugColor());
 
             plugLines.put(plug, line);
             rootPane.getChildren().add(line);
@@ -206,15 +215,6 @@ public class Plugboard {
         return null;
     }
 
-    private Color randomPlugColor() {
-        Random rand = new Random();
-        double valMin = 0.5;
-        double r = (valMin * rand.nextDouble()) + valMin;
-        double g = (valMin * rand.nextDouble()) + valMin;
-        double b = (valMin * rand.nextDouble()) + valMin;
-        return new Color(r, g, b, 1);
-    }
-
     public void dragStart(MouseEvent event) {
         Pane source = (Pane) event.getSource();
 
@@ -223,11 +223,17 @@ public class Plugboard {
         }
 
         if (currentPlug != null) {
+            if (currentPlug.getConnection1() != -1)
+                indexedShapes.get(currentPlug.getConnection1()).fillProperty().setValue(darkMode ? Constants.darkUnlitColor : Constants.unlitColor);
+            if (plugLines.containsKey(currentPlug) && plugLines.get(currentPlug) != null) {
+                rootPane.getChildren().remove(plugLines.get(currentPlug));
+                plugLines.remove(currentPlug);
+            }
             currentPlug.clear();
         }
 
         currentLine = new Line();
-        Color plugColor = randomPlugColor();
+        Color plugColor = Constants.randomPlugColor();
         currentLine.strokeWidthProperty().setValue(5);
         currentLine.setMouseTransparent(true);
 
@@ -237,13 +243,13 @@ public class Plugboard {
         Text text = getTextChild(source);
         if (text != null) {
             String t = text.getText().toLowerCase(Locale.ROOT);
-            System.out.println(t);
             t = t.replaceAll("tab", "\t").replaceAll("space", " ");
             int i = Constants.allowedKeys.indexOf(t);
             if (i != -1) {
                 currentPlug.setConnection1(i);
                 handleExistingPlugs(i);
             } else {
+                System.out.println("shouldn't be here");
                 // TODO maybe error check, should never get here
                 return;
             }
@@ -258,7 +264,6 @@ public class Plugboard {
         plugLines.put(currentPlug, currentLine);
 
         Bounds bounds = source.localToScene(source.getLayoutBounds());
-        System.out.println(bounds);
         double startX = bounds.getCenterX();
         double startY = bounds.getCenterY();
 
@@ -274,13 +279,12 @@ public class Plugboard {
     }
 
     public void dragEnd(MouseEvent event) {
-        Pane source = (Pane) event.getSource();
-        Pane root = (Pane) source.getScene().getRoot();
+        Node eSource = (Node) event.getSource();
+        Pane root = (Pane) eSource.getScene().getRoot();
 
         if (currentLine != null) {
-            Bounds bounds = source.localToScene(source.getLayoutBounds());
-            if (bounds.getCenterX() == currentLine.getStartX() && bounds.getCenterY() == currentLine.getStartY()) {
-                System.out.println("Invalid");
+            Bounds bounds = eSource.localToScene(eSource.getLayoutBounds());
+            if (eSource.equals(currentLine) || bounds.getCenterX() == currentLine.getStartX() && bounds.getCenterY() == currentLine.getStartY()) {
                 root.getChildren().remove(currentLine);
                 if (currentPlug.getConnection1() != -1)
                     indexedShapes.get(currentPlug.getConnection1()).fillProperty().setValue(Constants.unlitColor);
@@ -293,10 +297,11 @@ public class Plugboard {
                 return;
             }
 
+            Pane source = (Pane) eSource;
+
             Text text = getTextChild(source);
             if (text != null) {
                 String t = text.getText().toLowerCase(Locale.ROOT);
-                System.out.println(t);
                 t = t.replaceAll("tab", "\t").replaceAll("space", " ");
                 int i = Constants.allowedKeys.indexOf(t);
                 if (i != -1) {
@@ -307,19 +312,17 @@ public class Plugboard {
 
             Shape endShape = getCircleChild(source);
             if (endShape != null) {
-//                currentPlug.setConnection2Shape(endShape);
                 if (currentPlug != null) {
                     if (currentPlug.getPlugColor() != null)
                         endShape.fillProperty().set(currentPlug.getPlugColor());
                     else {
-                        Color plugColor = randomPlugColor();
+                        Color plugColor = Constants.randomPlugColor();
                         currentPlug.setPlugColor(plugColor);
                     }
                 }
             }
 
             if (currentPlug != null) {
-//                currentPlug.setLine(currentLine);
 
                 plugs.add(currentPlug);
                 currentPlug = null;
